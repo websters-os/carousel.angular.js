@@ -23,6 +23,10 @@ describe('contentCarousel component', function () {
         expect($ctrl.duration).toEqual(800);
     });
 
+    it('assert slide style', function () {
+        expect($ctrl.slideStyle).toEqual({'animation-duration': '800ms'});
+    });
+
     describe('with multiple items', function () {
         beforeEach(function () {
             items.push(2);

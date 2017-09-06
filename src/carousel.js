@@ -16,6 +16,7 @@ angular.module('carousel', ['carousel.templates']).component('contentCarousel', 
 
         $ctrl.$onInit = function () {
             $ctrl.duration = $ctrl.duration || 800;
+            $ctrl.slideStyle = {'animation-duration': $ctrl.duration + 'ms'};
 
             $ctrl.classForIndex = function (index) {
                 return classes[index] || '';
