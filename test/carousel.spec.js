@@ -23,6 +23,10 @@ describe('contentCarousel component', function () {
         expect($ctrl.duration).toEqual(800);
     });
 
+    it('assert default auto-play speed', function () {
+        expect($ctrl.autoPlaySpeed).toEqual(7000);
+    });
+
     it('assert slide style', function () {
         expect($ctrl.slideStyle).toEqual({'animation-duration': '800ms'});
     });
@@ -119,10 +123,90 @@ describe('contentCarousel component', function () {
                 assertGoToPrev(2, 0);
             });
         });
+
+        describe('when autoPlay is enabled', function () {
+            beforeEach(function () {
+                $ctrl.autoPlay = 'true';
+                $ctrl.$onInit();
+            });
+
+            describe('after autoPlay speed duration, move to next', function () {
+                beforeEach(function () {
+                    afterAutoPlaySpeedDuration();
+                });
+
+                assertGoToNext(0, 1);
+
+                describe('after some time before autoPlay speed duration is reached and after animation lock duration', function () {
+                    beforeEach(function () {
+                        $timeout.flush($ctrl.autoPlaySpeed/2);
+                    });
+
+                    describe('and manually trigger next', function () {
+                        beforeEach(function () {
+                            $ctrl.next();
+                        });
+
+                        assertGoToNext(1, 2);
+
+                        describe('and just before autoPlay speed duration is reached, nothing changes', function () {
+                            beforeEach(function () {
+                                $timeout.flush($ctrl.autoPlaySpeed - 1);
+                            });
+
+                            assertGoToNext(1, 2);
+                        });
+
+                        describe('and when autoPlay speed duration is reached, go to next', function () {
+                            beforeEach(function () {
+                                $timeout.flush($ctrl.autoPlaySpeed);
+                            });
+
+                            assertGoToNext(2, 0);
+                        });
+                    });
+                });
+
+                describe('after autoPlay speed duration, move to next', function () {
+                    beforeEach(function () {
+                        afterAutoPlaySpeedDuration();
+                    });
+
+                    assertGoToNext(1, 2);
+
+                    describe('after autoPlay speed duration, move to next', function () {
+                        beforeEach(function () {
+                            afterAutoPlaySpeedDuration();
+                        });
+
+                        assertGoToNext(2, 0);
+                    });
+                });
+
+                describe('and autoPlay is disabled', function () {
+                    beforeEach(function () {
+                        $ctrl.autoPlay = 'false';
+                        $ctrl.$onChanges();
+                    });
+
+                    describe('after autoPlay speed duration, do not move to next', function () {
+                        beforeEach(function () {
+                            afterAutoPlaySpeedDuration();
+                        });
+
+                        assertGoToNext(0, 1);
+                    });
+                });
+            });
+        });
     });
 
     function finishAnimation() {
         $timeout.flush($ctrl.duration - 250);
+    }
+
+    function afterAutoPlaySpeedDuration() {
+        $timeout.flush($ctrl.autoPlaySpeed);
     }
 
     function assertGoToNext(index, nextIndex) {
