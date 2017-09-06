@@ -1,0 +1,124 @@
+content-carousel {
+  display: block;
+  position: relative;
+
+  > .slides {
+    position: relative;
+    overflow: hidden;
+
+    > .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      visibility: hidden;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+      animation-duration: inherit;
+      backface-visibility: hidden;
+
+      &.active {
+        position: relative;
+        visibility: visible;
+
+        &.from-right {
+          animation-name: fromRight;
+        }
+
+        &.from-left {
+          animation-name: fromLeft;
+        }
+      }
+
+      &:not(.active) {
+        &.to-left {
+          visibility: visible;
+          animation-name: toLeft;
+        }
+
+        &.to-right {
+          visibility: visible;
+          animation-name: toRight;
+        }
+      }
+    }
+
+    &.slides-fade {
+      > .slide {
+        &.active {
+          &.from-right {
+            animation-name: fadeIn;
+          }
+
+          &.from-left {
+            animation-name: fadeIn;
+          }
+        }
+
+        &:not(.active) {
+          &.to-left {
+            animation-name: fadeOut;
+          }
+
+          &.to-right {
+            animation-name: fadeOut;
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes fromLeft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fromRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes toLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes toRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
