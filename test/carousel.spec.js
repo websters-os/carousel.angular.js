@@ -12,6 +12,7 @@ describe('contentCarousel component', function () {
 
     it('first item is active', function () {
         expect($ctrl.classForIndex(0)).toEqual('active');
+        expect($ctrl.isActive(0)).toBeTruthy();
     });
 
     it('not possible to go to another item', function () {
@@ -53,6 +54,10 @@ describe('contentCarousel component', function () {
             });
 
             assertGoToNext(0, 1);
+
+            it('assert active item', function () {
+                expect($ctrl.isActive(1)).toBeTruthy();
+            });
 
             describe('and calling next before animation time-frame is finished, does nothing', function () {
                 beforeEach(function () {

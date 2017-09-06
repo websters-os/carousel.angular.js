@@ -44,6 +44,10 @@ angular.module('carousel', ['carousel.templates']).component('contentCarousel', 
                 if (index > activeIndex) moveRightToLeft(index);
                 else if (index < activeIndex) moveLeftToRight(index);
             };
+
+            $ctrl.isActive = function (index) {
+                return classes[index] && classes[index].indexOf('active') !== -1;
+            };
         };
 
         $ctrl.$onChanges = function () {
