@@ -6,6 +6,7 @@ content-carousel {
   > .slides {
     position: relative;
     overflow: hidden;
+    z-index: 0; //necessary to create a new stacking context and make sure the individual slides are stacked correctly
 
     > .slide {
       position: absolute;
@@ -17,9 +18,11 @@ content-carousel {
       animation-fill-mode: forwards;
       animation-duration: inherit;
       backface-visibility: hidden;
+      z-index: -1;
 
       &.active {
         position: relative;
+        z-index: 0;
         visibility: visible;
 
         &.from-right {
