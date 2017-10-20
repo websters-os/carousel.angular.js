@@ -10,20 +10,21 @@ angular.module('carousel', ['carousel.templates']).component('contentCarousel', 
         autoPlay: '@',
         autoPlaySpeed: '@'
     },
-    controller: ['$timeout', function ($timeout) {
+    controller: ['$timeout', '$scope', function ($timeout, $scope) {
         var $ctrl = this;
-        var activeIndex = 0;
-        var classes = ['active'];
-        var isAnimating;
-        var autoPlayTimeout;
-        var isInitialised;
+        var activeIndex, classes, isAnimating, autoPlayTimeout, isInitialised;
 
         $ctrl.$onInit = function () {
+            reset();
             isInitialised = true;
             $ctrl.duration = $ctrl.duration || 800;
             $ctrl.slideStyle = {'animation-duration': $ctrl.duration + 'ms'};
             $ctrl.autoPlaySpeed = $ctrl.autoPlaySpeed || 7000;
             autoPlayIfEnabled();
+
+            $scope.$watch('$ctrl.items.length', function (newVal, oldVal) {
+                if (newVal !== oldVal) reset();
+            });
 
             $ctrl.classForIndex = function (index) {
                 return classes[index] || '';
@@ -53,6 +54,11 @@ angular.module('carousel', ['carousel.templates']).component('contentCarousel', 
         $ctrl.$onChanges = function () {
             if (isInitialised) autoPlayIfEnabled();
         };
+
+        function reset() {
+            classes = ['active'];
+            activeIndex = 0;
+        }
 
         function moveRightToLeft(index) {
             if (index > $ctrl.items.length - 1) index = 0;

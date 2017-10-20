@@ -1,10 +1,11 @@
 beforeEach(module('carousel'));
 
 describe('contentCarousel component', function () {
-    var $ctrl, items, $timeout;
+    var $ctrl, items, $timeout, $rootScope;
 
-    beforeEach(inject(function ($componentController, _$timeout_) {
+    beforeEach(inject(function ($componentController, _$timeout_, _$rootScope_) {
         $timeout = _$timeout_;
+        $rootScope = _$rootScope_;
         items = [1];
         $ctrl = $componentController('contentCarousel', null, {items: items});
         $ctrl.$onInit();
@@ -36,6 +37,7 @@ describe('contentCarousel component', function () {
         beforeEach(function () {
             items.push(2);
             items.push(3);
+            $rootScope.$digest();
         });
 
         it('first item is active', function () {
@@ -82,6 +84,26 @@ describe('contentCarousel component', function () {
                     });
 
                     assertGoToNext(2, 0);
+                });
+            });
+
+            describe('when new item is added', function () {
+                beforeEach(function () {
+                    items.push(4);
+                    $rootScope.$digest();
+                });
+
+                it('reset active item', function () {
+                    expect($ctrl.isActive(0)).toBeTruthy();
+                });
+
+                describe('and calling next after animation lock timeout', function () {
+                    beforeEach(function () {
+                        finishAnimation();
+                        $ctrl.next();
+                    });
+
+                    assertGoToNext(0, 1);
                 });
             });
         });
