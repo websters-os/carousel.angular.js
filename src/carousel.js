@@ -8,7 +8,8 @@ angular.module('carousel', ['carousel.templates']).component('contentCarousel', 
         dots: '@',
         fade: '@',
         autoPlay: '@',
-        autoPlaySpeed: '@'
+        autoPlaySpeed: '@',
+        darkenOverlay: '@',
     },
     controller: ['$timeout', '$scope', function ($timeout, $scope) {
         var $ctrl = this;
