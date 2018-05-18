@@ -1,11 +1,12 @@
 beforeEach(module('carousel'));
 
 describe('contentCarousel component', function () {
-    var $ctrl, items, $timeout, $rootScope;
+    var $ctrl, items, $timeout, $rootScope, $compile;
 
-    beforeEach(inject(function ($componentController, _$timeout_, _$rootScope_) {
+    beforeEach(inject(function ($componentController, _$timeout_, _$rootScope_, _$compile_) {
         $timeout = _$timeout_;
         $rootScope = _$rootScope_;
+        $compile = _$compile_;
         items = [1];
         $ctrl = $componentController('contentCarousel', null, {items: items});
         $ctrl.$onInit();
@@ -226,6 +227,32 @@ describe('contentCarousel component', function () {
                 });
             });
         });
+    });
+
+    describe('darken-overlay', function () {
+        
+        it('should show when darken-overlay attribute is present',  function () {
+            var element;
+            var scope = $rootScope.$new();
+
+            element = angular.element('<content-carousel darken-overlay></content-carousel>');
+            element = $compile(element)(scope);
+            scope.$digest();
+
+            expect(element[0].getElementsByClassName('darken-overlay').length).toEqual(1);
+        });
+
+        it('should NOT show a darken-overlay if attribute is NOT present', function () {
+            var element;
+            var scope = $rootScope.$new();
+
+            element = angular.element('<content-carousel></content-carousel>');
+            element = $compile(element)(scope);
+            scope.$digest();
+
+            expect(element[0].getElementsByClassName('darken-overlay').length).toEqual(0);
+        });
+        
     });
 
     function finishAnimation() {

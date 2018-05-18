@@ -8,7 +8,8 @@ angular.module('carousel', ['carousel.templates']).component('contentCarousel', 
         dots: '@',
         fade: '@',
         autoPlay: '@',
-        autoPlaySpeed: '@'
+        autoPlaySpeed: '@',
+        darkenOverlay: '@',
     },
     controller: ['$timeout', '$scope', function ($timeout, $scope) {
         var $ctrl = this;
@@ -20,6 +21,7 @@ angular.module('carousel', ['carousel.templates']).component('contentCarousel', 
             $ctrl.duration = $ctrl.duration || 800;
             $ctrl.slideStyle = {'animation-duration': $ctrl.duration + 'ms'};
             $ctrl.autoPlaySpeed = $ctrl.autoPlaySpeed || 7000;
+            $ctrl.isDarkenOverlayActive = $ctrl.darkenOverlay !== undefined;
             autoPlayIfEnabled();
 
             $scope.$watch('$ctrl.items.length', function (newVal, oldVal) {
