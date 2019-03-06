@@ -1,0 +1,44 @@
+#content-carousel {
+  .controls(@dot-size: 13px, @dot-margin: 5px, @dot-color: #fff) {
+    content-carousel {
+      .dots-wrapper {
+        position: absolute;
+        bottom: @dot-size;
+        width: 100%;
+
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          text-align: center;
+
+          li {
+            display: inline-block;
+            margin: 0 @dot-margin;
+            line-height: 0;
+            font-size: 0;
+
+            button {
+              margin: 0;
+              padding: 0;
+              width: @dot-size;
+              height: @dot-size;
+              border: 2px solid @dot-color;
+              border-radius: 50%;
+              background: rgba(0,0,0,0.10);
+              outline: none;
+              box-shadow: 0 2px 3px 0 rgba(0,0,0,0.30);
+              transition: background-color ease 800ms;
+            }
+
+            &.active {
+              button {
+                background: @dot-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
