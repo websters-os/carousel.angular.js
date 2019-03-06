@@ -1,0 +1,6 @@
+{
+  "default": {
+    "carousel": "bower_components/websters.carousel.angular/src/carousel.js",
+    "carousel.templates": "bower_components/websters.carousel.angular/src/carousel-tpls.js"
+  }
+}
