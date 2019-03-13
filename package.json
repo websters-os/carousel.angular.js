@@ -1,4 +1,12 @@
 {
+  "scripts": {
+    "postinstall": "bower update",
+    "templates": "gulp",
+    "templates:watch":"gulp templates:watch",
+    "test": "karma start karma.conf.js --single-run",
+    "test:watch": "karma start karma.conf.js",
+    "ci": "karma start karma.conf.js --single-run --browsers PhantomJS"
+  },
   "devDependencies": {
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",

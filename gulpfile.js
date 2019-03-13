@@ -10,6 +10,12 @@ var minifyHtmlOpts = {
     quotes: true
 };
 
+gulp.task('templates:watch', ['default'], function() {
+    gulp.watch('template/**/*.html', function () {
+        gulp.start('default');
+    });
+});
+
 gulp.task('default', function () {
     gulp.src(['template/*.html'])
         .pipe(minifyHtml(minifyHtmlOpts))

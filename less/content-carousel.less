@@ -140,7 +140,11 @@ content-carousel {
 }
 
 #content-carousel {
+  //TODO: Remove when no longer used in catalog.js
   .controls(@dot-size: 13px, @dot-margin: 5px, @dot-color: #fff) {
+    #content-carousel.dots(@dot-size, @dot-margin, @dot-color);
+  }
+  .dots(@dot-size: 13px, @dot-margin: 5px, @dot-color: #fff) {
     content-carousel {
       .dots-wrapper {
         position: absolute;
@@ -177,6 +181,42 @@ content-carousel {
                 background: @dot-color;
               }
             }
+          }
+        }
+      }
+    }
+  }
+  .over-content-arrows(@text-color-light: #fff) {
+    content-carousel {
+      .arrows {
+        color: @text-color-light;
+        font-size: 30px;
+
+        .arrow {
+          background: none;
+          height: 100%;
+          opacity: .5;
+          outline: none;
+          position: absolute;
+          top: 0;
+          // Prevents inheriting transform
+          transform: none;
+          width: 50px;
+
+          &:hover {
+            opacity: .9;
+            outline: 0;
+            text-decoration: none;
+          }
+
+          &-prev {
+            background-image: linear-gradient(to right, rgba(0,0,0,.5) 0, rgba(0,0,0,.0001) 100%);
+            left: 0;
+          }
+
+          &-next {
+            background-image: linear-gradient(to right, rgba(0,0,0,.0001) 0, rgba(0,0,0,.5) 100%);
+            right: 0;
           }
         }
       }
